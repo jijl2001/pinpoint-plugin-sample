@@ -65,9 +65,10 @@ public class RecordArgsAndReturnValueInterceptor implements AroundInterceptor1 {
     
     @Override
     public void before(Object target, Object arg0) {
-        if (isDebug) {
+        //if (isDebug) {
+        logger.debug("sdsdsdsds1111111111111111111");
             logger.beforeInterceptor(target, new Object[] { arg0 } );
-        }
+        //}
 
         // 1. Get Trace. It's null when current transaction is not being profiled.
         Trace trace = traceContext.currentTraceObject();
