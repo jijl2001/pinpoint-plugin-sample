@@ -19,6 +19,7 @@
         <module>target-lib</module>
         <module>plugin</module>
         <module>agent</module>
+        <module>agentsample</module>
     </modules>
 
     <build>
