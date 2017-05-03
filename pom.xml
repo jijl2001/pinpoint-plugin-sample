@@ -20,6 +20,7 @@
         <module>plugin</module>
         <module>agent</module>
         <module>agentsample</module>
+        <module>springmvcsample</module>
     </modules>
 
     <build>

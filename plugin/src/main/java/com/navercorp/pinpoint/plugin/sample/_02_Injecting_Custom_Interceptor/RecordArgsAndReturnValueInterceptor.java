@@ -72,47 +72,49 @@ public class RecordArgsAndReturnValueInterceptor implements AroundInterceptor1 {
         //}
 
         // 1. Get Trace. It's null when current transaction is not being profiled.
-//        Trace trace = traceContext.currentTraceObject();
-//        if (trace == null) {
-//            return;
-//        }
-//
-//        // 2. Begin a trace block.
-//        trace.traceBlockBegin();
+        Trace trace = traceContext.currentTraceObject();
+        logger.debug("Trace o:{}",trace);
+        if (trace == null) {
+            return;
+        }
+
+        // 2. Begin a trace block.
+        trace.traceBlockBegin();
     }
 
 
 //    @IgnoreMethod
     @Override
     public void after(Object target, Object arg0, Object result, Throwable throwable) {
-//        if (isDebug) {
-//            logger.afterInterceptor(target, new Object[] { arg0 });
-//        }
-//
-//        // 1. Get Trace.
-//        Trace trace = traceContext.currentTraceObject();
-//        if (trace == null) {
-//            return;
-//        }
+        if (isDebug) {
+            logger.afterInterceptor(target, new Object[] { arg0 });
+        }
 
-//        try {
-//            // 2. Get current span event recorder
-//            SpanEventRecorder recorder = trace.currentSpanEventRecorder();
-//
-//            // 3. Record service type
-//            recorder.recordServiceType(SamplePluginConstants.MY_SERVICE_TYPE);
-//
-//            // 4. record method signature and arguments
-//            recorder.recordApi(descriptor, new Object[] { arg0 });
-//
-//            // 5. record exception if any.
-//            recorder.recordException(throwable);
-//
-//            // 6. Trace doesn't provide a method to record return value. You have to record it as an attribute.
-//            recorder.recordAttribute(AnnotationKey.RETURN_DATA, result);
-//        } finally {
-//            // 7. End trace block.
-//            trace.traceBlockEnd();
-//        }
+        // 1. Get Trace.
+        Trace trace = traceContext.currentTraceObject();
+        logger.debug("Trace o:{}",trace);
+        if (trace == null) {
+            return;
+        }
+
+        try {
+            // 2. Get current span event recorder
+            SpanEventRecorder recorder = trace.currentSpanEventRecorder();
+
+            // 3. Record service type
+            recorder.recordServiceType(SamplePluginConstants.MY_SERVICE_TYPE);
+
+            // 4. record method signature and arguments
+            recorder.recordApi(descriptor, new Object[] { arg0 });
+
+            // 5. record exception if any.
+            recorder.recordException(throwable);
+
+            // 6. Trace doesn't provide a method to record return value. You have to record it as an attribute.
+            recorder.recordAttribute(AnnotationKey.RETURN_DATA, result);
+        } finally {
+            // 7. End trace block.
+            trace.traceBlockEnd();
+        }
     }
 }
